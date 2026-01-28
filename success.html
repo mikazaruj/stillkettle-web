@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful - PropertyFlow</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100' rx='20'/><path fill='%23fff' d='M50 20L30 60h15v20l20-40H50V20z'/></svg>">
+</head>
+<body class="font-sans text-gray-900 bg-white min-h-screen flex items-center justify-center">
+  <div class="max-w-md mx-auto px-4 text-center">
+    <!-- Success Icon -->
+    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+
+    <!-- Message -->
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Payment successful!</h1>
+    <p class="text-gray-600 mb-8">Thank you for upgrading to Pro.</p>
+
+    <!-- Next Steps -->
+    <div class="bg-gray-50 rounded-xl p-6 mb-8 text-left">
+      <h2 class="font-semibold text-gray-900 mb-4">Next steps:</h2>
+      <ol class="space-y-3 text-sm text-gray-600">
+        <li class="flex items-start">
+          <span class="flex-shrink-0 w-6 h-6 bg-black text-white rounded-full flex items-center justify-center text-xs font-medium mr-3">1</span>
+          <span>Install the PropertyFlow extension (if you haven't already)</span>
+        </li>
+        <li class="flex items-start">
+          <span class="flex-shrink-0 w-6 h-6 bg-black text-white rounded-full flex items-center justify-center text-xs font-medium mr-3">2</span>
+          <span>Sign in with the same email you used for checkout</span>
+        </li>
+        <li class="flex items-start">
+          <span class="flex-shrink-0 w-6 h-6 bg-black text-white rounded-full flex items-center justify-center text-xs font-medium mr-3">3</span>
+          <span>Your Pro features will be activated automatically</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- CTAs -->
+    <div class="space-y-3">
+      <a href="#" class="block w-full bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors">
+        Install Extension
+      </a>
+      <a href="https://mail.google.com" class="block w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-full font-medium hover:bg-gray-50 transition-colors">
+        Go to Gmail
+      </a>
+    </div>
+
+    <!-- Back link -->
+    <a href="index.html" class="inline-block mt-8 text-sm text-gray-500 hover:text-gray-700">
+      &larr; Back to PropertyFlow
+    </a>
+  </div>
+</body>
+</html>
