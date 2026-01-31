@@ -28,6 +28,23 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            aurora: 'aurora 60s linear infinite',
+          },
+          keyframes: {
+            aurora: {
+              from: { backgroundPosition: '50% 50%, 50% 50%' },
+              to: { backgroundPosition: '350% 50%, 350% 50%' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 
   <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,102 +52,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; }
+    :root {
+      --white: #fff;
+      --black: #000;
+      --transparent: transparent;
+      --blue-300: #93c5fd;
+      --blue-400: #60a5fa;
+      --blue-500: #3b82f6;
+      --indigo-300: #a5b4fc;
+      --violet-200: #ddd6fe;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .aurora-bg {
+      --white-gradient: repeating-linear-gradient(100deg, var(--white) 0%, var(--white) 7%, var(--transparent) 10%, var(--transparent) 12%, var(--white) 16%);
+      --aurora: repeating-linear-gradient(100deg, var(--blue-500) 10%, var(--indigo-300) 15%, var(--blue-300) 20%, var(--violet-200) 25%, var(--blue-400) 30%);
+      background-image: var(--white-gradient), var(--aurora);
+      background-size: 300% 200%;
+      background-position: 50% 50%;
+      filter: blur(10px) invert(1);
+      opacity: 0.5;
+    }
+
+    .aurora-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--white-gradient), var(--aurora);
+      background-size: 200% 100%;
+      animation: aurora 60s linear infinite;
+      background-attachment: fixed;
+      mix-blend-mode: difference;
+    }
+
+    @keyframes aurora {
+      from { background-position: 50% 50%, 50% 50%; }
+      to { background-position: 350% 50%, 350% 50%; }
+    }
   </style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
+<body class="bg-zinc-50 text-gray-900 antialiased">
+
+<!-- Aurora Background -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+  <div class="aurora-bg absolute -inset-[10px] will-change-transform" style="mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);"></div>
+</div>
 
 <!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo -->
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-          <span class="text-white text-xs font-bold">SK</span>
+<nav class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-5xl mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+      <!-- Logo Placeholder -->
+      <a href="/" class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+          <span class="text-gray-400 text-xs">Logo</span>
         </div>
-        <span class="text-xl font-semibold">Still Kettle</span>
-      </div>
-
-      <!-- Links -->
-      <div class="flex items-center space-x-6">
-        <a href="#projects" class="text-gray-600 hover:text-gray-900 text-sm font-medium">Projects</a>
-        <a href="mailto:hello@stillkettle.com" class="text-gray-600 hover:text-gray-900 text-sm font-medium">Contact</a>
-      </div>
+        <span class="text-xl font-semibold text-gray-900">Still Kettle</span>
+      </a>
     </div>
   </div>
 </nav>
 
-<!-- Spacer for fixed nav -->
-<div class="h-16"></div>
+<!-- Main Content -->
+<main class="relative min-h-screen flex flex-col items-center justify-center px-6">
 
-<!-- Hero Section -->
-<section class="py-24 sm:py-32">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-      Building tools that simplify your workflow
+  <!-- Hero Text -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4">
+      Building tools that<br>simplify your workflow
     </h1>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-      Still Kettle creates software tools and browser extensions to help you work smarter, not harder.
+    <p class="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto">
+      Software and browser extensions to help you work smarter.
     </p>
   </div>
-</section>
 
-<!-- Projects Section -->
-<section id="projects" class="py-16 bg-gray-50">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Our Projects</h2>
-
-    <div class="grid gap-6 max-w-2xl mx-auto">
-      <!-- Stella -->
-      <a href="https://stella.stillkettle.com" class="block p-6 bg-white rounded-2xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center flex-shrink-0">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <!-- Projects List (Centered) -->
+  <div class="w-full max-w-md space-y-3">
+    <!-- Stella -->
+    <a href="https://stella.stillkettle.com" class="block w-full px-6 py-4 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl hover:bg-white hover:border-gray-300 hover:shadow-lg transition-all group">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
           </div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-              <h3 class="text-lg font-semibold text-gray-900">Stella</h3>
-              <span class="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Chrome Extension</span>
-            </div>
-            <p class="text-gray-600 text-sm mb-2">Gmail Invoice Scanner - Extract invoice data from Gmail to Google Sheets automatically.</p>
-            <span class="text-sm font-medium text-gray-900 hover:underline">Visit site →</span>
+          <div>
+            <h3 class="font-semibold text-gray-900">Stella</h3>
+            <p class="text-sm text-gray-500">Gmail Invoice Scanner</p>
           </div>
         </div>
-      </a>
-
-      <!-- More projects placeholder -->
-      <div class="p-6 bg-gray-100 rounded-2xl border border-dashed border-gray-300 text-center">
-        <p class="text-gray-500 text-sm">More projects coming soon</p>
+        <svg class="w-5 h-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
       </div>
+    </a>
+
+    <!-- Coming Soon Placeholder -->
+    <div class="w-full px-6 py-4 border border-dashed border-gray-300 rounded-xl text-center">
+      <p class="text-sm text-gray-400">More projects coming soon</p>
     </div>
   </div>
-</section>
+
+</main>
 
 <!-- Footer -->
-<footer class="py-12 border-t border-gray-100">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<footer class="relative py-8 border-t border-gray-200/50">
+  <div class="max-w-5xl mx-auto px-6">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="flex items-center space-x-2">
-        <div class="w-6 h-6 bg-black rounded flex items-center justify-center">
-          <span class="text-white text-xs font-bold">SK</span>
-        </div>
-        <span class="text-sm text-gray-600">Still Kettle</span>
-      </div>
-
-      <div class="flex items-center space-x-6 text-sm">
-        <a href="privacy.html" class="text-gray-600 hover:text-gray-900">Privacy</a>
-        <a href="terms.html" class="text-gray-600 hover:text-gray-900">Terms</a>
-        <a href="mailto:hello@stillkettle.com" class="text-gray-600 hover:text-gray-900">Contact</a>
+      <p class="text-sm text-gray-500">© 2026 Still Kettle</p>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="mailto:hello@stillkettle.com" class="text-gray-500 hover:text-gray-900 transition-colors">Contact</a>
+        <a href="privacy.html" class="text-gray-500 hover:text-gray-900 transition-colors">Privacy</a>
+        <a href="terms.html" class="text-gray-500 hover:text-gray-900 transition-colors">Terms</a>
       </div>
     </div>
-
-    <p class="text-center text-gray-400 text-xs mt-8">
-      © 2026 Still Kettle. All rights reserved.
-    </p>
   </div>
 </footer>
 
