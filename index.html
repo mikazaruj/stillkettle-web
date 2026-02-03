@@ -8,23 +8,15 @@
   <title>Still Kettle - Software Tools for Productivity</title>
   <meta name="title" content="Still Kettle - Software Tools for Productivity">
   <meta name="description" content="Still Kettle builds software tools that simplify your workflow. Chrome extensions and web applications for productivity.">
-  <meta name="keywords" content="software tools, chrome extensions, productivity, automation">
-  <meta name="author" content="Still Kettle">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://stillkettle.com/">
-  <meta property="og:title" content="Still Kettle - Software Tools">
-  <meta property="og:description" content="Building software tools that simplify your workflow.">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://stillkettle.com/">
-  <meta property="twitter:title" content="Still Kettle - Software Tools">
-  <meta property="twitter:description" content="Building software tools that simplify your workflow.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100' rx='20'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>SK</text></svg>">
+
+  <!-- Fonts: Satoshi + Inter -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,13 +24,37 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            'display': ['Satoshi', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            'body': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            'sk': {
+              'magenta': '#E879F9',
+              'pink': '#F472B6',
+              'orange': '#FB923C',
+              'amber': '#FBBF24',
+              'yellow': '#FDE047',
+              'lavender': {
+                100: '#F3E8FF',
+                200: '#E9D5FF',
+                300: '#D8B4FE',
+                400: '#C084FC',
+              }
+            }
+          },
           animation: {
-            aurora: 'aurora 60s linear infinite',
+            'fade-up': 'fadeUp 0.6s ease-out forwards',
+            'float': 'float 6s ease-in-out infinite',
           },
           keyframes: {
-            aurora: {
-              from: { backgroundPosition: '50% 50%, 50% 50%' },
-              to: { backgroundPosition: '350% 50%, 350% 50%' },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
             },
           },
         },
@@ -46,149 +62,160 @@
     }
   </script>
 
-  <!-- Inter Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --white: #fff;
-      --black: #000;
-      --transparent: transparent;
-      --blue-300: #93c5fd;
-      --blue-400: #60a5fa;
-      --blue-500: #3b82f6;
-      --indigo-300: #a5b4fc;
-      --violet-200: #ddd6fe;
-    }
-
     body {
       font-family: 'Inter', sans-serif;
     }
 
-    .aurora-bg {
-      --white-gradient: repeating-linear-gradient(100deg, var(--white) 0%, var(--white) 7%, var(--transparent) 10%, var(--transparent) 12%, var(--white) 16%);
-      --aurora: repeating-linear-gradient(100deg, var(--blue-500) 10%, var(--indigo-300) 15%, var(--blue-300) 20%, var(--violet-200) 25%, var(--blue-400) 30%);
-      background-image: var(--white-gradient), var(--aurora);
-      background-size: 300% 200%;
-      background-position: 50% 50%;
-      filter: blur(10px) invert(1);
-      opacity: 0.5;
+    .font-display {
+      font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, sans-serif;
     }
 
-    .aurora-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: var(--white-gradient), var(--aurora);
-      background-size: 200% 100%;
-      animation: aurora 60s linear infinite;
-      background-attachment: fixed;
-      mix-blend-mode: difference;
+    /* Stagger animation delays */
+    .stagger-1 { animation-delay: 0ms; }
+    .stagger-2 { animation-delay: 100ms; }
+    .stagger-3 { animation-delay: 200ms; }
+    .stagger-4 { animation-delay: 300ms; }
+    .stagger-5 { animation-delay: 400ms; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #E879F9 0%, #FB923C 50%, #FDE047 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    @keyframes aurora {
-      from { background-position: 50% 50%, 50% 50%; }
-      to { background-position: 350% 50%, 350% 50%; }
+    /* Cloud shapes */
+    .cloud {
+      background: linear-gradient(135deg, #E9D5FF 0%, #F3E8FF 100%);
+      border-radius: 50%;
+    }
+
+    /* Gradient glow shadow */
+    .glow-shadow {
+      box-shadow: 0 20px 40px -10px rgb(244 114 182 / 0.3);
     }
   </style>
 </head>
-<body class="bg-zinc-50 text-gray-900 antialiased">
+<body class="bg-white text-gray-900 antialiased overflow-x-hidden">
 
-<!-- Aurora Background -->
+<!-- Decorative Elements -->
 <div class="fixed inset-0 overflow-hidden pointer-events-none">
-  <div class="aurora-bg absolute -inset-[10px] will-change-transform" style="mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);"></div>
+  <!-- Cloud shapes -->
+  <div class="cloud absolute top-[20%] left-[5%] w-32 h-20 opacity-60 animate-float"></div>
+  <div class="cloud absolute top-[15%] right-[10%] w-24 h-14 opacity-40 animate-float" style="animation-delay: -2s;"></div>
+  <div class="cloud absolute top-[60%] left-[8%] w-20 h-12 opacity-30 animate-float" style="animation-delay: -4s;"></div>
+  <div class="cloud absolute bottom-[20%] right-[5%] w-28 h-16 opacity-50 animate-float" style="animation-delay: -3s;"></div>
 </div>
 
 <!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-5xl mx-auto px-6 py-4">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+  <div class="max-w-6xl mx-auto px-6 py-4">
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <img src="assets/logo.png" alt="Still Kettle" class="h-12 w-auto">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">SK</span>
+        </div>
+        <span class="font-display font-bold text-lg">Still Kettle</span>
+      </a>
+
+      <!-- Nav CTA -->
+      <a href="mailto:hello@stillkettle.com" class="px-4 py-2 text-sm font-medium text-white bg-black rounded-full hover:bg-gray-800 transition-all">
+        Contact
       </a>
     </div>
   </div>
 </nav>
 
 <!-- Main Content -->
-<main class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24">
+<main class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16">
 
-  <!-- Hero Text -->
-  <div class="text-center mb-12">
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4">
-      Good things take time to brew
+  <!-- Hero Section -->
+  <div class="text-center mb-16 max-w-4xl mx-auto">
+    <!-- Headline -->
+    <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-black leading-[1.1] mb-6 opacity-0 animate-fade-up stagger-1">
+      Good things<br>
+      take time to <span class="gradient-text">brew</span>
     </h1>
-    <p class="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto">
+
+    <!-- Subheadline -->
+    <p class="text-lg sm:text-xl text-gray-500 max-w-xl mx-auto mb-10 opacity-0 animate-fade-up stagger-2">
       We make tools we wished existed. AI makes it possible to rethink how things should work — so we are.
     </p>
-  </div>
 
-  <!-- Projects List (Centered) -->
-  <div class="w-full max-w-md space-y-3">
-    <!-- Stella -->
-    <a href="https://stella.stillkettle.com" class="block w-full px-6 py-4 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl hover:bg-white hover:border-gray-300 hover:shadow-lg transition-all group">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <div>
-            <h3 class="font-semibold text-gray-900">Stella</h3>
-            <p class="text-sm text-gray-500">Gmail Invoice Scanner</p>
-          </div>
-        </div>
-        <svg class="w-5 h-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </div>
-    </a>
-
-    <!-- Coming Soon Placeholder -->
-    <div class="w-full px-6 py-4 border border-dashed border-gray-300 rounded-xl text-center">
-      <p class="text-sm text-gray-400">More projects coming soon</p>
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-fade-up stagger-3">
+      <a href="https://stella.stillkettle.com" class="px-6 py-3 text-sm font-medium text-white bg-black rounded-full border-2 border-black hover:bg-gray-800 hover:border-gray-800 transition-all">
+        Try Stella — It's Free
+      </a>
+      <button onclick="openContactModal()" class="px-6 py-3 text-sm font-medium text-black bg-white rounded-full border-2 border-gray-300 hover:border-black transition-all">
+        Share an Idea
+      </button>
     </div>
   </div>
 
-  <!-- CTA Section -->
-  <div class="mt-16 text-center">
-    <p class="text-gray-600 mb-4">Think something should exist but doesn't?</p>
-    <button onclick="openContactModal()" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-lg hover:bg-white hover:border-gray-300 hover:shadow-md transition-all">
-      Let's talk
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-      </svg>
-    </button>
+  <!-- Product Card -->
+  <div class="w-full max-w-lg opacity-0 animate-fade-up stagger-4">
+    <div class="relative">
+      <!-- Gradient backdrop -->
+      <div class="absolute inset-0 bg-gradient-to-br from-sk-magenta via-sk-orange to-sk-yellow rounded-2xl transform rotate-1 scale-[1.02] opacity-80"></div>
+
+      <!-- Card -->
+      <a href="https://stella.stillkettle.com" class="relative block w-full p-6 bg-white rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all group">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-black rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="font-display font-bold text-xl text-gray-900">Stella</h3>
+                <span class="px-2 py-0.5 text-xs font-semibold text-black bg-gradient-to-r from-sk-magenta to-sk-orange rounded-full">LIVE</span>
+              </div>
+              <p class="text-gray-500">Gmail Invoice Scanner</p>
+            </div>
+          </div>
+          <svg class="w-6 h-6 text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <!-- Coming Soon -->
+    <div class="mt-4 w-full px-6 py-4 border-2 border-dashed border-gray-200 rounded-2xl text-center">
+      <p class="text-sm text-gray-400 font-medium">More tools brewing...</p>
+    </div>
   </div>
 
 </main>
 
 <!-- Contact Modal -->
 <div id="contactModal" class="fixed inset-0 z-50 hidden">
-  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeContactModal()"></div>
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeContactModal()"></div>
   <div class="absolute inset-0 flex items-center justify-center p-4">
-    <div class="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
-      <button onclick="closeContactModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+      <button onclick="closeContactModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
-      <h3 class="text-xl font-semibold text-gray-900 mb-2">Let's talk</h3>
-      <p class="text-gray-600 mb-6">Have an idea for a tool that should exist? We'd love to hear it.</p>
+      <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Let's talk</h3>
+      <p class="text-gray-500 mb-6">Have an idea for a tool that should exist? We'd love to hear it.</p>
       <form id="contactForm" class="space-y-4">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your email</label>
-          <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" placeholder="you@example.com">
+          <input type="email" id="email" name="email" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-black focus:ring-0 outline-none transition-all" placeholder="you@example.com">
         </div>
         <div>
           <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your idea</label>
-          <textarea id="message" name="message" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all resize-none" placeholder="Tell us about the tool you wish existed..."></textarea>
+          <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-black focus:ring-0 outline-none transition-all resize-none" placeholder="Tell us about the tool you wish existed..."></textarea>
         </div>
-        <button type="submit" class="w-full px-4 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors">
+        <button type="submit" class="w-full px-4 py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800 transition-colors">
           Send message
         </button>
       </form>
@@ -223,14 +250,14 @@
 </script>
 
 <!-- Footer -->
-<footer class="relative py-8 border-t border-gray-200/50">
-  <div class="max-w-5xl mx-auto px-6">
+<footer class="relative py-8 border-t border-gray-100">
+  <div class="max-w-6xl mx-auto px-6">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p class="text-sm text-gray-500">© 2026 Still Kettle</p>
+      <p class="text-sm text-gray-400">© 2026 Still Kettle</p>
       <div class="flex items-center gap-6 text-sm">
-        <a href="mailto:hello@stillkettle.com" class="text-gray-500 hover:text-gray-900 transition-colors">Contact</a>
-        <a href="privacy.html" class="text-gray-500 hover:text-gray-900 transition-colors">Privacy</a>
-        <a href="terms.html" class="text-gray-500 hover:text-gray-900 transition-colors">Terms</a>
+        <a href="mailto:hello@stillkettle.com" class="text-gray-400 hover:text-black transition-colors">Contact</a>
+        <a href="privacy.html" class="text-gray-400 hover:text-black transition-colors">Privacy</a>
+        <a href="terms.html" class="text-gray-400 hover:text-black transition-colors">Terms</a>
       </div>
     </div>
   </div>
