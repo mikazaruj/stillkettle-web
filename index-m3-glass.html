@@ -311,6 +311,41 @@
     }
 
     /* ===================
+       M3 BADGE
+       Status indicators
+       =================== */
+    .md-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: var(--md-sys-shape-corner-full);
+      font-family: var(--md-sys-typescale-label-font);
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: var(--md-sys-typescale-label-medium-weight);
+      letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+    }
+
+    .md-badge--live {
+      background: #22c55e;
+      color: white;
+    }
+
+    .md-badge--soon {
+      background: rgba(0, 0, 0, 0.08);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .md-badge--primary {
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .md-badge--secondary {
+      background: var(--md-sys-color-secondary);
+      color: var(--md-sys-color-on-secondary);
+    }
+
+    /* ===================
        LAYOUT
        =================== */
     .container {
@@ -452,7 +487,7 @@
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
               </svg>
             </div>
-            <span class="label-medium" style="padding: 6px 12px; background: #22c55e; color: white; border-radius: var(--md-sys-shape-corner-full);">Live</span>
+            <span class="md-badge md-badge--live">Live</span>
           </div>
           <h3 class="title-large" style="margin: 0 0 var(--md-sys-spacing-sm) 0; color: var(--md-sys-color-on-surface);">Stella</h3>
           <p class="body-medium" style="margin: 0 0 var(--md-sys-spacing-xl) 0; color: var(--md-sys-color-on-surface-variant);">
@@ -475,7 +510,7 @@
                 <path d="M12 6v6l4 2"/>
               </svg>
             </div>
-            <span class="label-medium glass-chip" style="padding: 6px 12px; color: var(--md-sys-color-on-surface-variant); border-radius: var(--md-sys-shape-corner-full);">Soon</span>
+            <span class="md-badge md-badge--soon">Soon</span>
           </div>
           <h3 class="title-large" style="margin: 0 0 var(--md-sys-spacing-sm) 0; color: var(--md-sys-color-on-surface-variant);">Something new</h3>
           <p class="body-medium" style="margin: 0 0 var(--md-sys-spacing-xl) 0; color: var(--md-sys-color-outline);">
