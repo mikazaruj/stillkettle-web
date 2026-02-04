@@ -8,27 +8,27 @@
 :root {
   /* ===================
      COLOR TOKENS
-     Midnight Blue Theme
-     Generated from M3 color system
+     Shadow & Toffee Theme
+     Warm, sophisticated palette
      =================== */
 
-  /* Primary - True Midnight Blue */
-  --md-sys-color-primary: #191970;
+  /* Primary - Shadow Grey */
+  --md-sys-color-primary: #211A1D;
   --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #d6d6ff;
-  --md-sys-color-on-primary-container: #0a0a3a;
+  --md-sys-color-primary-container: #d9d0d3;
+  --md-sys-color-on-primary-container: #1a1417;
 
-  /* Secondary */
-  --md-sys-color-secondary: #535f70;
+  /* Secondary - Toffee Brown */
+  --md-sys-color-secondary: #895737;
   --md-sys-color-on-secondary: #FFFFFF;
-  --md-sys-color-secondary-container: #d7e3f8;
-  --md-sys-color-on-secondary-container: #101c2b;
+  --md-sys-color-secondary-container: #f5dfd0;
+  --md-sys-color-on-secondary-container: #3d2415;
 
-  /* Tertiary */
-  --md-sys-color-tertiary: #6b5778;
+  /* Tertiary - Toffee Brown (matching secondary) */
+  --md-sys-color-tertiary: #895737;
   --md-sys-color-on-tertiary: #FFFFFF;
-  --md-sys-color-tertiary-container: #f3daff;
-  --md-sys-color-on-tertiary-container: #251432;
+  --md-sys-color-tertiary-container: #f5dfd0;
+  --md-sys-color-on-tertiary-container: #3d2415;
 
   /* Error */
   --md-sys-color-error: #BA1A1A;

@@ -8,7 +8,7 @@
   <meta name="description" content="We build AI-powered tools that automate tedious tasks.">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23191970' width='100' height='100' rx='28'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>SK</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23211A1D' width='100' height='100' rx='28'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>SK</text></svg>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- M3 Design Tokens -->
-  <link rel="stylesheet" href="styles/m3-tokens.css">
+  <link rel="stylesheet" href="styles/m3-tokens.css?v=2">
 
   <style>
     /* ===================
@@ -180,11 +180,11 @@
     }
 
     .glass-nav {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     }
 
     .glass-chip {
@@ -265,7 +265,7 @@
       border: 1px solid var(--md-sys-color-outline);
     }
     .md-button--outlined:hover {
-      background-color: rgba(25, 25, 112, 0.08);
+      background-color: rgba(33, 26, 29, 0.08);
     }
 
     .md-button--tonal {
@@ -339,9 +339,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.45);
       z-index: 0;
     }
 
@@ -399,7 +397,6 @@
     <div style="display: flex; align-items: center; gap: var(--md-sys-spacing-sm);">
       <a href="#products" style="padding: 8px 16px; border-radius: var(--md-sys-shape-corner-full); text-decoration: none; color: var(--md-sys-color-on-surface-variant);">Products</a>
       <a href="#about" style="padding: 8px 16px; border-radius: var(--md-sys-shape-corner-full); text-decoration: none; color: var(--md-sys-color-on-surface-variant);">About</a>
-      <a href="https://stella.stillkettle.com" class="md-button md-button--filled">Get Started</a>
     </div>
   </div>
 </nav>
@@ -410,7 +407,7 @@
     <div style="max-width: 720px;">
       <!-- Glass Chip -->
       <div class="md-chip glass-chip animate animate-delay-1" style="margin-bottom: var(--md-sys-spacing-xl); color: var(--md-sys-color-on-surface);">
-        <span style="width: 8px; height: 8px; background: var(--md-sys-color-primary); border-radius: 50%;"></span>
+        <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%;"></span>
         Stella is now live
       </div>
 
@@ -450,12 +447,12 @@
         <!-- Stella Card - Glass -->
         <a href="https://stella.stillkettle.com" class="glass-card" style="text-decoration: none; color: inherit; padding: var(--md-sys-spacing-xl); display: block;">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--md-sys-spacing-xl);">
-            <div style="width: 56px; height: 56px; background: rgba(25, 25, 112, 0.15); backdrop-filter: blur(8px); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center;">
+            <div style="width: 56px; height: 56px; background: rgba(33, 26, 29, 0.15); backdrop-filter: blur(8px); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--md-sys-color-primary)" stroke-width="2">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
               </svg>
             </div>
-            <span class="label-medium glass-chip" style="padding: 6px 12px; background: rgba(25, 25, 112, 0.9); color: white; border-radius: var(--md-sys-shape-corner-full);">Live</span>
+            <span class="label-medium" style="padding: 6px 12px; background: #22c55e; color: white; border-radius: var(--md-sys-shape-corner-full);">Live</span>
           </div>
           <h3 class="title-large" style="margin: 0 0 var(--md-sys-spacing-sm) 0; color: var(--md-sys-color-on-surface);">Stella</h3>
           <p class="body-medium" style="margin: 0 0 var(--md-sys-spacing-xl) 0; color: var(--md-sys-color-on-surface-variant);">
@@ -470,7 +467,7 @@
         </a>
 
         <!-- Coming Soon Card - Glass with dashed border -->
-        <div class="glass-card" style="padding: var(--md-sys-spacing-xl); border: 2px dashed rgba(25, 25, 112, 0.2);">
+        <div class="glass-card" style="padding: var(--md-sys-spacing-xl); border: 2px dashed rgba(33, 26, 29, 0.2);">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--md-sys-spacing-xl);">
             <div style="width: 56px; height: 56px; background: rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--md-sys-color-on-surface-variant)" stroke-width="2">
@@ -581,7 +578,7 @@
           </div>
         </div>
 
-        <div style="width: 2px; height: 24px; background: rgba(25, 25, 112, 0.2); margin-left: 23px; margin-bottom: var(--md-sys-spacing-xl);"></div>
+        <div style="width: 2px; height: 24px; background: rgba(33, 26, 29, 0.2); margin-left: 23px; margin-bottom: var(--md-sys-spacing-xl);"></div>
 
         <div style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-lg); margin-bottom: var(--md-sys-spacing-xl);">
           <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.5); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -593,7 +590,7 @@
           </div>
         </div>
 
-        <div style="width: 2px; height: 24px; background: rgba(25, 25, 112, 0.2); margin-left: 23px; margin-bottom: var(--md-sys-spacing-xl);"></div>
+        <div style="width: 2px; height: 24px; background: rgba(33, 26, 29, 0.2); margin-left: 23px; margin-bottom: var(--md-sys-spacing-xl);"></div>
 
         <div style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-lg);">
           <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.5); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
