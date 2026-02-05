@@ -1,0 +1,251 @@
+/* ===================
+   THEME PRESETS
+   Light and Dark theme configurations for Still Kettle
+   =================== */
+
+/* ===================
+   LIGHT THEME (Default)
+   Use with lighter background images (paint strokes, etc.)
+   =================== */
+
+/* Section backgrounds - warm glassmorphism */
+body.theme-light .section-gradient-subtle,
+.section-gradient-subtle {
+  background: rgba(250, 249, 247, 0.75);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+}
+
+body.theme-light .section-gradient-products,
+.section-gradient-products {
+  background: rgba(239, 236, 234, 0.78);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+body.theme-light .section-gradient-features,
+.section-gradient-features {
+  background: rgba(245, 243, 240, 0.72);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+}
+
+body.theme-light .section-gradient-about,
+.section-gradient-about {
+  background: rgba(239, 236, 234, 0.78);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* Light theme glass cards */
+body.theme-light .glass-card,
+.glass-card {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+}
+
+body.theme-light .glass-card:hover,
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.65);
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Light theme navigation */
+body.theme-light .glass-nav {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Light theme footer */
+body.theme-light footer {
+  background: rgba(232, 228, 225, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
+/* ===================
+   DARK THEME
+   Use with darker background images (mountain, night sky, etc.)
+   =================== */
+
+/* Dark section backgrounds */
+body.theme-dark .section-gradient-subtle,
+body.theme-dark .section-gradient-products,
+body.theme-dark .section-gradient-features,
+body.theme-dark .section-gradient-about {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Dark glass cards */
+body.theme-dark .glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-dark .glass-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark CTA section card */
+body.theme-dark .section-gradient-subtle .glass-card {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dark theme typography */
+body.theme-dark .section h2,
+body.theme-dark .section h3,
+body.theme-dark .section .title-large,
+body.theme-dark .section .title-medium,
+body.theme-dark .section .title-small,
+body.theme-dark .section .headline-large {
+  color: #fff !important;
+}
+
+body.theme-dark .section p,
+body.theme-dark .section .body-large,
+body.theme-dark .section .body-medium,
+body.theme-dark .section .body-small {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.theme-dark .section .label-large {
+  color: #a78bfa !important;
+}
+
+/* Dark theme buttons */
+body.theme-dark .md-button--filled {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+body.theme-dark .md-button--glass {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Dark theme badges */
+body.theme-dark .md-badge--live {
+  background: #22c55e;
+}
+
+body.theme-dark .md-badge--soon {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Dark theme footer */
+body.theme-dark footer {
+  background: rgba(10, 10, 15, 0.9) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+body.theme-dark footer p,
+body.theme-dark footer a,
+body.theme-dark footer span {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.theme-dark footer .label-large {
+  color: #fff !important;
+}
+
+body.theme-dark footer a[href^="mailto"] {
+  color: #a78bfa !important;
+}
+
+/* Dark theme icon circles - purple glow */
+body.theme-dark .glass-card > div:first-child > div:first-child,
+body.theme-dark .section .glass-card div[style*="border-radius: var(--md-sys-shape-corner-full)"],
+body.theme-dark .section .glass-card div[style*="border-radius: var(--md-sys-shape-corner-medium)"] {
+  background: rgba(167, 139, 250, 0.15) !important;
+  border: 1px solid rgba(167, 139, 250, 0.3) !important;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
+}
+
+/* Dark theme icon strokes - purple accent */
+body.theme-dark .glass-card svg {
+  stroke: #a78bfa !important;
+}
+
+/* Dark theme product card icon containers */
+body.theme-dark .glass-card > div:first-child > div:first-child {
+  background: rgba(167, 139, 250, 0.12) !important;
+}
+
+/* Dark theme process step numbers */
+body.theme-dark .glass-card .title-medium {
+  color: #a78bfa !important;
+}
+
+/* Dark theme process step connector lines */
+body.theme-dark .glass-card div[style*="width: 2px"][style*="height: 24px"] {
+  background: rgba(167, 139, 250, 0.3) !important;
+}
+
+/* Dark theme Coming Soon card (dashed border) */
+body.theme-dark .glass-card[style*="dashed"] {
+  border: 2px dashed rgba(255, 255, 255, 0.15) !important;
+}
+
+body.theme-dark .glass-card[style*="dashed"] svg {
+  stroke: rgba(255, 255, 255, 0.4) !important;
+}
+
+body.theme-dark .glass-card[style*="dashed"] h3 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+
+/* ===================
+   TRANSITION THEME (Optional)
+   Gradient fade from dark hero to light content
+   =================== */
+
+body.theme-transition .section-gradient-products {
+  background: linear-gradient(180deg, rgba(20, 15, 25, 0.95) 0%, rgba(245, 243, 240, 0.95) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.theme-transition .section-gradient-features,
+body.theme-transition .section-gradient-about,
+body.theme-transition .section-gradient-subtle {
+  background: rgba(245, 243, 240, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.theme-transition .label-large {
+  color: #7c3aed !important;
+}
+
+body.theme-transition .md-button--filled {
+  background: #7c3aed;
+  color: #fff;
+}
+
+body.theme-transition .md-badge--live {
+  background: #7c3aed;
+}

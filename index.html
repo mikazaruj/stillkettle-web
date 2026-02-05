@@ -18,6 +18,9 @@
   <!-- M3 Design Tokens -->
   <link rel="stylesheet" href="styles/m3-tokens.css?v=2">
 
+  <!-- Theme Presets (light/dark) -->
+  <link rel="stylesheet" href="styles/theme-presets.css">
+
   <style>
     /* ===================
        BASE STYLES
@@ -205,29 +208,7 @@
        WARM GREY SECTION BACKGROUNDS
        Increased transparency to harmonize with hero
        =================== */
-    .section-gradient-subtle {
-      background: rgba(250, 249, 247, 0.75);
-      backdrop-filter: blur(12px) saturate(120%);
-      -webkit-backdrop-filter: blur(12px) saturate(120%);
-    }
-
-    .section-gradient-products {
-      background: rgba(239, 236, 234, 0.78);
-      backdrop-filter: blur(10px) saturate(120%);
-      -webkit-backdrop-filter: blur(10px) saturate(120%);
-    }
-
-    .section-gradient-features {
-      background: rgba(245, 243, 240, 0.72);
-      backdrop-filter: blur(12px) saturate(120%);
-      -webkit-backdrop-filter: blur(12px) saturate(120%);
-    }
-
-    .section-gradient-about {
-      background: rgba(239, 236, 234, 0.78);
-      backdrop-filter: blur(10px) saturate(120%);
-      -webkit-backdrop-filter: blur(10px) saturate(120%);
-    }
+    /* Section backgrounds defined in theme-presets.css */
 
     /* ===================
        M3 BUTTON COMPONENTS
@@ -411,7 +392,7 @@
     .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
   </style>
 </head>
-<body>
+<body class="theme-dark">
 
 <!-- Fixed Page Background -->
 <div class="page-bg"></div>
