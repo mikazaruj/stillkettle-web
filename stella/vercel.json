@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    { "source": "/pricing.html", "destination": "/pricing", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/refund.html", "destination": "/refund", "permanent": true },
+    { "source": "/success.html", "destination": "/success", "permanent": true }
+  ]
+}

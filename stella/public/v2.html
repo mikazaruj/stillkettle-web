@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Primary Meta Tags -->
+  <title>Stella - Stop Copying Invoice Data</title>
+  <meta name="title" content="Stella - Extract Gmail Invoices to Google Sheets Automatically">
+  <meta name="description" content="Extract invoice data from Gmail to Google Sheets automatically. AI-powered scanning, no manual entry required. Free Chrome extension.">
+  <meta name="author" content="Still Kettle">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stella.stillkettle.com/">
+  <meta property="og:title" content="Stella - Gmail Invoice Scanner">
+  <meta property="og:description" content="Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.">
+  <meta property="og:image" content="https://stella.stillkettle.com/images/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://stella.stillkettle.com/">
+  <meta property="twitter:title" content="Stella - Gmail Invoice Scanner">
+  <meta property="twitter:description" content="Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.">
+  <meta property="twitter:image" content="https://stella.stillkettle.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100' rx='20'/><path fill='%23fff' d='M50 20L30 60h15v20l20-40H50V20z'/></svg>">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- SVG sprite (hidden) -->
+<svg class="hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 9l-7 7-7-7"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7z"/>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 18L18 6M6 6l12 12"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </symbol>
+    <symbol id="icon-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+    </symbol>
+    <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h.01M9 11h.01M9 15h.01M13 7h.01M13 11h.01M13 15h.01"/>
+    </symbol>
+    <symbol id="icon-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Skip-to-content -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100" aria-label="Main navigation">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <div class="flex items-center gap-2">
+      <div class="size-8 bg-brand rounded-lg flex items-center justify-center">
+        <svg class="size-5 text-brand-foreground" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+      </div>
+      <span class="text-xl font-semibold">Stella</span>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="#how-it-works" class="text-sm text-content-secondary hover:text-content transition-colors py-3 px-2">How it works</a>
+      <a href="#pricing" class="text-sm text-content-secondary hover:text-content transition-colors py-3 px-2">Pricing</a>
+      <a href="#cta" class="btn-nav">Join the Waitlist</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      type="button"
+      class="sm:hidden p-3 -mr-2 min-h-touch min-w-touch flex items-center justify-center"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="Open menu"
+      onclick="const m=document.getElementById('mobile-nav'),e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!e);this.setAttribute('aria-label',e?'Open menu':'Close menu');m.classList.toggle('active');this.querySelector('.ico-open').classList.toggle('hidden');this.querySelector('.ico-close').classList.toggle('hidden')"
+    >
+      <svg class="size-6 ico-open" aria-hidden="true" focusable="false"><use href="#icon-menu"/></svg>
+      <svg class="size-6 ico-close hidden" aria-hidden="true" focusable="false"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div id="mobile-nav" class="mobile-menu sm:hidden bg-surface border-t border-gray-100 px-4 py-4 space-y-3">
+    <a href="#how-it-works" class="block text-content-secondary font-medium py-3 px-2 rounded hover:bg-surface-muted min-h-touch">How it works</a>
+    <a href="#pricing" class="block text-content-secondary font-medium py-3 px-2 rounded hover:bg-surface-muted min-h-touch">Pricing</a>
+    <a href="#cta" class="block bg-brand text-brand-foreground text-center font-medium py-3 px-4 rounded-full hover:bg-gray-800 min-h-touch">Join the Waitlist</a>
+  </div>
+</nav>
+
+<div class="h-16"></div>
+
+<main id="main-content">
+
+<!-- HERO: Solution-First -->
+<section class="py-20 sm:py-32 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="section-label mb-4">Chrome Extension for Invoice Automation</p>
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-content mb-6 leading-tight">
+      Never copy invoice data again
+    </h1>
+    <p class="text-lg sm:text-xl text-content-secondary mb-8 leading-relaxed">
+      Stella reads invoice emails and logs the data in your spreadsheet -- any language, any currency, any format.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+      <a href="#cta" class="btn-primary">Get Early Access</a>
+      <a href="#how-it-works" class="btn-secondary">See how it works</a>
+    </div>
+
+    <!-- Demo placeholder -->
+    <div class="rounded-2xl bg-surface-muted border border-gray-200 overflow-hidden shadow-lg aspect-video flex items-center justify-center">
+      <div class="text-center">
+        <svg class="size-16 text-content-subtle mx-auto mb-3" aria-hidden="true" focusable="false"><use href="#icon-play"/></svg>
+        <p class="text-content-muted font-medium">Watch the 2-minute demo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY BENEFITS -->
+<section class="py-16 bg-surface-muted">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="sr-only">Key Benefits</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="size-12 bg-accent-light rounded-lg flex items-center justify-center mx-auto mb-4">
+          <svg class="size-6 text-accent" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Reads and Extracts Instantly</h3>
+        <p class="text-content-secondary">Stella recognizes invoice data in your email and pulls it out automatically</p>
+      </div>
+      <div class="text-center">
+        <div class="size-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <svg class="size-6 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-check-circle"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">No Manual Entry</h3>
+        <p class="text-content-secondary">One-click logging to Google Sheets or your spreadsheet app</p>
+      </div>
+      <div class="text-center">
+        <div class="size-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <svg class="size-6 text-purple-600" aria-hidden="true" focusable="false"><use href="#icon-sliders"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Any Language, Any Currency</h3>
+        <p class="text-content-secondary">Reads invoices in multiple languages and currencies without extra setup</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS: Setup Timeline -->
+<section id="how-it-works" class="section-padding">
+  <div class="max-w-3xl mx-auto">
+    <div class="section-header">
+      <p class="section-label">Quick Setup</p>
+      <h2 class="section-title">How Stella works</h2>
+    </div>
+
+    <div class="space-y-6">
+      <div class="timeline-step">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="pb-4">
+          <h3 class="text-lg font-semibold text-content">Connect Gmail</h3>
+          <p class="text-content-secondary">Stella reads only your invoices. Revoke access anytime.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="pb-4">
+          <h3 class="text-lg font-semibold text-content">Choose Your Sheet</h3>
+          <p class="text-content-secondary">Pick the spreadsheet column layout for invoice data (amount, date, vendor, etc.)</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="pb-4">
+          <h3 class="text-lg font-semibold text-content">Set Your Vendors</h3>
+          <p class="text-content-secondary">Tell Stella which email addresses send invoices</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="pb-4">
+          <h3 class="text-lg font-semibold text-content">Enable Scheduling (Pro)</h3>
+          <p class="text-content-secondary">Free: scan manually. Pro: automated daily, weekly, or monthly scans.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div>
+          <h3 class="text-lg font-semibold text-content">Done!</h3>
+          <p class="text-content-secondary">Scan anytime, or let Pro run on autopilot. Your sheet stays updated.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT HELPS -->
+<section class="section-padding bg-surface-muted">
+  <div class="max-w-6xl mx-auto">
+    <div class="section-header">
+      <h2 class="section-title">For everyone who tracks invoices</h2>
+      <p class="text-lg text-content-secondary">Whether you manage properties, run a small business, or juggle consulting work</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-compact">
+        <div class="size-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+          <svg class="size-5 text-orange-600" aria-hidden="true" focusable="false"><use href="#icon-building"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-1">Property Managers</h3>
+        <p class="text-sm text-content-secondary">Track utilities, maintenance, and contractor invoices across properties. Bill tenants accurately.</p>
+      </div>
+      <div class="card-compact">
+        <div class="size-10 bg-accent-light rounded-lg flex items-center justify-center mb-3">
+          <svg class="size-5 text-accent" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-1">Small Business Owners</h3>
+        <p class="text-sm text-content-secondary">Stella copies vendor invoices into your spreadsheet. Accounting stays current without manual work.</p>
+      </div>
+      <div class="card-compact">
+        <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
+          <svg class="size-5 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-briefcase"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-1">Freelancers & Consultants</h3>
+        <p class="text-sm text-content-secondary">Track client invoices and vendor payments. Keep expense tracking simple and current.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPREHENSIVE FEATURES -->
+<section class="section-padding">
+  <div class="max-w-6xl mx-auto">
+    <div class="section-header">
+      <p class="section-label">Powerful Capabilities</p>
+      <h2 class="section-title">What Stella does</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div>
+        <h3 class="text-xl font-semibold text-content mb-6">Core Features</h3>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Automatic invoice detection from emails</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Works with Google Sheets and Excel</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Multi-language invoice support</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">All currency formats recognized</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-content mb-6">Pro Features</h3>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-accent shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary"><span class="font-semibold">Automated scheduling</span> -- Stella logs invoices on your schedule</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-accent shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary"><span class="font-semibold">Advanced filtering</span> -- target specific vendors</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-accent shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary"><span class="font-semibold">Priority support</span> -- get help from the team</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="size-5 text-accent shrink-0 mt-0.5" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary"><span class="font-semibold">Multiple sheets</span> -- organize different invoice types</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section-padding glass-section">
+  <div class="max-w-4xl mx-auto">
+    <div class="section-header">
+      <p class="section-label">Simple, Transparent Pricing</p>
+      <h2 class="section-title">Choose your plan</h2>
+      <p class="text-lg text-content-secondary">Start free. Upgrade when you need automation.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+      <!-- Free Plan -->
+      <div class="glass-card rounded-2xl p-8">
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-content mb-2">Free</h3>
+          <p class="text-content-secondary text-sm">Manual logging, unlimited invoices</p>
+        </div>
+        <div class="mb-8">
+          <p class="text-3xl font-bold text-content">&euro;0</p>
+          <p class="text-sm text-content-secondary mt-1">Free plan -- no time limit</p>
+        </div>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Automatic invoice detection</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Google Sheets & Excel</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Multi-language support</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-content-muted shrink-0" aria-hidden="true" focusable="false"><use href="#icon-x"/></svg>
+            <span class="text-content-muted line-through">Automated scheduling (Pro only)</span>
+          </li>
+        </ul>
+        <a href="#cta" class="w-full btn-secondary justify-center py-3.5 px-6">Join the Waitlist</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="glass-card rounded-2xl p-8 pt-12 ring-2 ring-accent relative mt-8 md:mt-0">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold">
+          RECOMMENDED
+        </div>
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-content mb-2">Pro</h3>
+          <p class="text-content-secondary text-sm">Automated logging, full power</p>
+        </div>
+        <div class="mb-8">
+          <p class="text-3xl font-bold text-content">&euro;12<span class="text-lg text-content-secondary">/month</span></p>
+          <p class="text-sm text-content-secondary mt-1">or &euro;120/year (save 17%)</p>
+        </div>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-accent shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Everything in Free</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-accent shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Automated daily scheduling</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-accent shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Advanced vendor filtering</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-accent shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Priority email support</span>
+          </li>
+        </ul>
+        <a href="#cta" class="w-full btn-accent justify-center">Join Pro Waitlist</a>
+      </div>
+    </div>
+
+    <p class="text-center text-content-secondary mt-8 text-sm">No credit card required. 7-day free trial for Pro.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-padding">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="section-title text-center mb-12">Frequently asked questions</h2>
+
+    <div class="space-y-4">
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Is my data safe?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Yes. Stella uses OAuth 2.0 to connect to Gmail. We don't store invoice content -- only extracted fields (vendor, amount, date) pass through our servers on the way to your sheet.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Does it work with invoices in other languages?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Yes. Stella reads invoices in English, Spanish, French, German, Italian, Portuguese, Dutch, and more. It also recognizes different number formats and currency symbols.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Can I use it with spreadsheet apps other than Google Sheets?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Yes. Stella works with Google Sheets, Microsoft Excel, and any spreadsheet app that supports Google Sheets API integration.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>What if I need to cancel my Pro subscription?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Cancel anytime. No contracts, no questions. Your data stays in your Google Sheet -- you just lose Pro features like automated scheduling.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>How does the Pro free trial work?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">7 days of Pro features, completely free. No credit card needed. If you don't upgrade by day 7, your account reverts to the Free plan automatically.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" class="section-padding bg-surface-muted">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="section-title">Ready to stop copying invoices?</h2>
+    <p class="text-xl text-content-secondary mb-8">Join the waitlist. Be first to try Stella when it launches.</p>
+
+    <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault();this.querySelector('button').textContent='You\'re on the list!';this.querySelector('button').disabled=true;this.querySelector('input').disabled=true">
+      <label for="waitlist-email" class="sr-only">Email address</label>
+      <input
+        id="waitlist-email"
+        type="email"
+        placeholder="you@email.com"
+        required
+        class="flex-1 px-4 py-3 rounded-full text-content placeholder-content-subtle border border-gray-300 min-h-touch focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+      >
+      <button type="submit" class="btn-primary px-8 py-3">
+        Join Waitlist
+      </button>
+    </form>
+    <p class="text-sm text-content-muted mt-4">No spam. Just a launch notification.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="py-12 px-4 bg-gray-900 text-gray-400">
+  <div class="max-w-6xl mx-auto text-center text-sm space-y-3">
+    <p>&copy; 2026 Still Kettle.</p>
+    <nav aria-label="Footer links">
+      <a href="privacy.html" class="underline hover:text-white mx-2">Privacy & Data</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="terms.html" class="underline hover:text-white mx-2">Terms of Service</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="mailto:hello@stillkettle.com" class="underline hover:text-white mx-2">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

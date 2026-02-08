@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Primary Meta Tags -->
+  <title>Stella - Stop Copying Invoice Data</title>
+  <meta name="title" content="Stella - Extract Gmail Invoices to Google Sheets Automatically">
+  <meta name="description" content="Extract invoice data from Gmail to Google Sheets automatically. AI-powered scanning, no manual entry required. Free Chrome extension.">
+  <meta name="author" content="Still Kettle">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stella.stillkettle.com/">
+  <meta property="og:title" content="Stella - Gmail Invoice Scanner">
+  <meta property="og:description" content="Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.">
+  <meta property="og:image" content="https://stella.stillkettle.com/images/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://stella.stillkettle.com/">
+  <meta property="twitter:title" content="Stella - Gmail Invoice Scanner">
+  <meta property="twitter:description" content="Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.">
+  <meta property="twitter:image" content="https://stella.stillkettle.com/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100' rx='20'/><path fill='%23fff' d='M50 20L30 60h15v20l20-40H50V20z'/></svg>">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- SVG sprite (hidden) -->
+<svg class="hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 9l-7 7-7-7"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7z"/>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 18L18 6M6 6l12 12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Skip-to-content -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100" aria-label="Main navigation">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <div class="flex items-center gap-2">
+      <div class="size-8 bg-brand rounded-lg flex items-center justify-center">
+        <svg class="size-5 text-brand-foreground" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+      </div>
+      <span class="text-xl font-semibold">Stella</span>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="#how-it-works" class="text-sm text-content-secondary hover:text-content transition-colors py-3 px-2">How it works</a>
+      <a href="#pricing" class="text-sm text-content-secondary hover:text-content transition-colors py-3 px-2">Pricing</a>
+      <a href="#cta" class="btn-nav">Join the Waitlist</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      type="button"
+      class="sm:hidden p-3 -mr-2 min-h-touch min-w-touch flex items-center justify-center"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="Open menu"
+      onclick="const m=document.getElementById('mobile-nav'),e=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',!e);this.setAttribute('aria-label',e?'Open menu':'Close menu');m.classList.toggle('active');this.querySelector('.ico-open').classList.toggle('hidden');this.querySelector('.ico-close').classList.toggle('hidden')"
+    >
+      <svg class="size-6 ico-open" aria-hidden="true" focusable="false"><use href="#icon-menu"/></svg>
+      <svg class="size-6 ico-close hidden" aria-hidden="true" focusable="false"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div id="mobile-nav" class="mobile-menu sm:hidden bg-surface border-t border-gray-100 px-4 py-4 space-y-3">
+    <a href="#how-it-works" class="block text-content-secondary font-medium py-3 px-2 rounded hover:bg-surface-muted min-h-touch">How it works</a>
+    <a href="#pricing" class="block text-content-secondary font-medium py-3 px-2 rounded hover:bg-surface-muted min-h-touch">Pricing</a>
+    <a href="#cta" class="block bg-brand text-brand-foreground text-center font-medium py-3 px-4 rounded-full hover:bg-gray-800 min-h-touch">Join the Waitlist</a>
+  </div>
+</nav>
+
+<div class="h-16"></div>
+
+<main id="main-content">
+
+<!-- HERO -->
+<section class="py-20 sm:py-32 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="section-label mb-4">Why I Built Stella</p>
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-content mb-6 leading-tight">
+      I was drowning in invoice emails.
+    </h1>
+    <p class="text-lg sm:text-xl text-content-secondary mb-8 leading-relaxed">
+      My invoices arrived in three languages. Bookkeeping ate hours every week. I needed automation or an assistant -- so I built one.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+      <a href="#cta" class="btn-primary">Get Early Access</a>
+      <a href="#how-it-works" class="btn-secondary">See how it works</a>
+    </div>
+
+    <!-- Demo placeholder -->
+    <div class="rounded-2xl bg-surface-muted border border-gray-200 overflow-hidden shadow-lg aspect-video flex items-center justify-center">
+      <div class="text-center">
+        <svg class="size-16 text-content-subtle mx-auto mb-3" aria-hidden="true" focusable="false"><use href="#icon-play"/></svg>
+        <p class="text-content-muted font-medium">Watch the 2-minute demo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="section-padding bg-surface-muted">
+  <div class="max-w-6xl mx-auto">
+    <div class="section-header">
+      <p class="section-label">Works For Everyone</p>
+      <h2 class="section-title">Whether you manage properties, run a small business, or juggle invoices</h2>
+      <p class="text-lg text-content-secondary">Stella handles the grunt work so you can focus on what matters.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Property Managers -->
+      <div class="card hover:shadow-lg hover:border-gray-300 transition-shadow">
+        <div class="size-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+          <svg class="size-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 16l4-4m0 0l4-4m-4 4L9 4"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-content mb-3">Property Managers</h3>
+        <p class="text-content-secondary mb-4 leading-relaxed">Track utilities, maintenance, and contractor invoices across properties. Bill tenants accurately every time.</p>
+        <p class="text-sm text-content-muted font-medium">Save 2+ hours per property per month</p>
+      </div>
+
+      <!-- Small Business Owners -->
+      <div class="card hover:shadow-lg hover:border-gray-300 transition-shadow">
+        <div class="size-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="size-6 text-accent" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold text-content mb-3">Small Business Owners</h3>
+        <p class="text-content-secondary mb-4 leading-relaxed">Stella copies vendor invoices into your spreadsheet. Accounting stays current without effort.</p>
+        <p class="text-sm text-content-muted font-medium">Reclaim 5-10 hours per month</p>
+      </div>
+
+      <!-- Freelancers -->
+      <div class="card hover:shadow-lg hover:border-gray-300 transition-shadow">
+        <div class="size-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+          <svg class="size-6 text-purple-600" aria-hidden="true" focusable="false"><use href="#icon-bolt"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold text-content mb-3">Freelancers & Consultants</h3>
+        <p class="text-content-secondary mb-4 leading-relaxed">Track client invoices, vendor payments, and expenses. Tax time becomes a breeze.</p>
+        <p class="text-sm text-content-muted font-medium">Stop losing email invoices</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="section-padding">
+  <div class="max-w-3xl mx-auto">
+    <div class="section-header">
+      <h2 class="section-title">Quick Setup</h2>
+      <p class="text-lg text-content-secondary">Then Stella runs in the background.</p>
+    </div>
+
+    <div class="space-y-8">
+      <div class="flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <div class="size-12 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-600" aria-hidden="true">1</div>
+          <div class="w-0.5 flex-1 bg-gray-200 mt-3"></div>
+        </div>
+        <div class="pt-1 pb-4">
+          <h3 class="text-lg font-bold text-content mb-2">Connect your Gmail</h3>
+          <p class="text-content-secondary leading-relaxed">OAuth only. Stella reads invoices, nothing else. Revoke access anytime.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <div class="size-12 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-600" aria-hidden="true">2</div>
+          <div class="w-0.5 flex-1 bg-gray-200 mt-3"></div>
+        </div>
+        <div class="pt-1 pb-4">
+          <h3 class="text-lg font-bold text-content mb-2">Pick a Google Sheet</h3>
+          <p class="text-content-secondary leading-relaxed">Your organized invoice database. Data appends automatically, never overwrites.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <div class="size-12 bg-accent-light rounded-full flex items-center justify-center font-bold text-accent" aria-hidden="true">3</div>
+          <div class="w-0.5 flex-1 bg-gray-200 mt-3"></div>
+        </div>
+        <div class="pt-1 pb-4">
+          <h3 class="text-lg font-bold text-content mb-2">Add vendor emails</h3>
+          <p class="text-content-secondary leading-relaxed">Tell Stella which vendors send your invoices. It learns and gets smarter.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <div class="size-12 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-600" aria-hidden="true">4</div>
+          <div class="w-0.5 flex-1 bg-gray-200 mt-3"></div>
+        </div>
+        <div class="pt-1 pb-4">
+          <h3 class="text-lg font-bold text-content mb-2">Choose your schedule (Pro)</h3>
+          <p class="text-content-secondary leading-relaxed">Free: scan manually. Pro: automated daily, weekly, or monthly scans.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-6">
+        <div class="flex flex-col items-center shrink-0">
+          <div class="size-12 bg-emerald-100 rounded-full flex items-center justify-center font-bold text-emerald-600" aria-hidden="true">&#10003;</div>
+        </div>
+        <div class="pt-1">
+          <h3 class="text-lg font-bold text-content mb-2">Done. Scan anytime, or let Pro run on autopilot.</h3>
+          <p class="text-content-secondary leading-relaxed">No more manual data entry. Your sheet stays updated. You get your time back.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section-padding bg-surface-muted">
+  <div class="max-w-6xl mx-auto">
+    <div class="section-header">
+      <h2 class="section-title">Everything Built In</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="card-feature">
+        <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <svg class="size-5 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-2">Privacy First</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Your data goes from Gmail to your Sheet. Period.</p>
+      </div>
+
+      <div class="card-feature">
+        <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <svg class="size-5 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-2">6 Fields Free</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Vendor, amount, date, description, reference. Covers most invoices.</p>
+      </div>
+
+      <div class="card-feature">
+        <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <svg class="size-5 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-2">100 Free Scans</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Per month. About 3 scans weekly. Enough for most needs.</p>
+      </div>
+
+      <div class="card-feature">
+        <div class="size-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <svg class="size-5 text-green-600" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+        </div>
+        <h3 class="font-semibold text-content mb-2">3 Vendors Tracked</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Perfect for focused tracking. Scale with Pro when needed.</p>
+      </div>
+
+      <div class="card-feature">
+        <div class="size-10 bg-accent-light rounded-lg flex items-center justify-center mb-4">
+          <span class="text-xs font-bold text-accent" aria-hidden="true">PRO</span>
+        </div>
+        <h3 class="font-semibold text-content mb-2">16 Fields (Pro)</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Everything: tax codes, due dates, payment terms.</p>
+      </div>
+
+      <div class="card-feature">
+        <div class="size-10 bg-accent-light rounded-lg flex items-center justify-center mb-4">
+          <span class="text-xs font-bold text-accent" aria-hidden="true">PRO</span>
+        </div>
+        <h3 class="font-semibold text-content mb-2">PDF Invoices (Pro)</h3>
+        <p class="text-sm text-content-secondary leading-relaxed">Extracts data from attachments: PDFs, images, everything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section-padding glass-section">
+  <div class="max-w-4xl mx-auto">
+    <div class="section-header">
+      <h2 class="section-title">Simple Pricing</h2>
+      <p class="text-lg text-content-secondary">Start free. Upgrade when you need automation.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Free -->
+      <div class="glass-card rounded-2xl p-8">
+        <h3 class="text-2xl font-bold text-content mb-2">Free</h3>
+        <p class="text-content-secondary mb-6">Perfect for trying it out</p>
+        <p class="text-4xl font-bold text-content mb-8">&euro;0<span class="text-lg text-content-muted">/mo</span></p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Manual email scanning</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">6 fields extracted</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">100 scans/month</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">3 vendors</span>
+          </li>
+        </ul>
+        <a href="#cta" class="w-full btn-secondary justify-center py-3.5 px-6">Get Early Access</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="glass-card rounded-2xl p-8 pt-12 border-2 border-accent relative mt-4 md:mt-0">
+        <div class="absolute -top-4 right-8">
+          <span class="bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold">RECOMMENDED</span>
+        </div>
+        <h3 class="text-2xl font-bold text-content mb-2">Pro</h3>
+        <p class="text-content-secondary mb-6">For teams and power users</p>
+        <p class="text-4xl font-bold text-content mb-8">&euro;12<span class="text-lg text-content-muted">/mo</span></p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Unlimited auto-scans</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">16 fields extracted</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">PDF invoice processing</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">10 vendors tracked</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="size-5 text-green-600 shrink-0" aria-hidden="true" focusable="false"><use href="#icon-check"/></svg>
+            <span class="text-content-secondary">Daily/weekly/monthly scheduling</span>
+          </li>
+        </ul>
+        <a href="#cta" class="w-full btn-accent justify-center">Join Pro Waitlist</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-padding">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="section-title text-center mb-12">Questions?</h2>
+
+    <div class="space-y-4">
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Will Stella scan ALL my emails?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">No. You tell Stella which vendors to watch. It only processes those emails. Your inbox stays private.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>What happens to my data?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">It goes straight to your Google Sheet. We don't store it. Your data stays yours.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Does it work in different languages?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Yes. Our AI reads invoices in any language -- German, French, Spanish, Arabic, and more.</p>
+      </details>
+
+      <details class="group faq-item">
+        <summary class="faq-summary">
+          <span>Can I cancel anytime?</span>
+          <svg class="size-5 text-content-muted group-open:rotate-180 transition-transform shrink-0 ml-4" aria-hidden="true" focusable="false"><use href="#icon-chevron"/></svg>
+        </summary>
+        <p class="faq-answer">Yes. No contracts. Cancel instantly. Your data stays in your Google Sheet.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="section-padding bg-brand text-brand-foreground">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-6">Ready to reclaim your time?</h2>
+    <p class="text-xl text-gray-300 mb-8">Join the waitlist. Be first to try Stella when it launches.</p>
+
+    <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault();this.querySelector('button').textContent='You\'re on the list!';this.querySelector('button').disabled=true;this.querySelector('input').disabled=true">
+      <label for="waitlist-email" class="sr-only">Email address</label>
+      <input
+        id="waitlist-email"
+        type="email"
+        placeholder="you@email.com"
+        required
+        class="flex-1 px-4 py-3 rounded-full text-content placeholder-content-subtle border-0 min-h-touch focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+      >
+      <button type="submit" class="bg-surface text-content px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors min-h-touch">
+        Join Waitlist
+      </button>
+    </form>
+    <p class="text-sm text-gray-400 mt-4">No spam. Just a launch notification.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="py-12 border-t border-gray-200">
+  <div class="max-w-6xl mx-auto px-4 text-center text-content-muted text-sm space-y-2">
+    <p>&copy; 2026 Still Kettle. Privacy by design.</p>
+    <nav aria-label="Footer links">
+      <a href="privacy.html" class="underline hover:text-content mx-2">Privacy Policy</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="terms.html" class="underline hover:text-content mx-2">Terms of Service</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="mailto:hello@stillkettle.com" class="underline hover:text-content mx-2">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
