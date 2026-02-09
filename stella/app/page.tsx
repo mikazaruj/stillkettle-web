@@ -1,5 +1,3 @@
-"use client";
-
 import { ComingSoonProvider } from "@/components/coming-soon-dialog";
 import { Navbar } from "@/components/layout/navbar";
 import Hero from "@/components/sections/hero";
