@@ -22,6 +22,8 @@ export default function HeroVideo() {
         autoPlay
         muted
         playsInline
+        preload="auto"
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%23f3f4f6' width='1920' height='1080'/%3E%3Ctext x='960' y='540' text-anchor='middle' dominant-baseline='central' font-family='system-ui' font-size='48' fill='%239ca3af'%3ELoading demo...%3C/text%3E%3C/svg%3E"
         className="w-full aspect-video object-cover"
         onEnded={() => setShowReplay(true)}
       >

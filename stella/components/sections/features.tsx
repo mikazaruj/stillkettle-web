@@ -152,7 +152,7 @@ export default function Features() {
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="text-xl font-semibold">{feature.title}</h3>
                 {feature.pro && (
-                  <Badge className="bg-black text-white text-xs">Pro</Badge>
+                  <Badge className="bg-primary text-primary-foreground text-xs">Pro</Badge>
                 )}
               </div>
               <p className="text-gray-600">{feature.description}</p>

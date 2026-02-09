@@ -150,8 +150,8 @@ export default function PricingSection({
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Card className="border-2 border-black p-8 h-full relative">
-              <Badge className="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-1">
+            <Card className="border-2 border-primary p-8 h-full relative">
+              <Badge className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1">
                 Most Popular
               </Badge>
 
@@ -173,7 +173,7 @@ export default function PricingSection({
               </ul>
 
               <Button
-                className="w-full rounded-full bg-black hover:bg-black/90 text-white cursor-pointer"
+                className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
                 onClick={open}
               >
                 Start Pro
