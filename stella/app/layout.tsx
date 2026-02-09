@@ -20,12 +20,14 @@ export const metadata: Metadata = {
     title: "Stella - Gmail Invoice Scanner",
     description:
       "Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.",
+    images: ["/images/og-image.png"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Stella - Gmail Invoice Scanner",
     description:
       "Stop manually copying invoice data. Extract from Gmail to Sheets in seconds.",
+    images: ["/images/og-image.png"],
   },
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%E2%9A%A1</text></svg>",
