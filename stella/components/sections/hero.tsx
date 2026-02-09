@@ -38,7 +38,7 @@ export default function Hero() {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Free Chrome Extension — Launching Soon
+            Free Chrome Extension
           </Badge>
         </motion.div>
 
@@ -49,8 +49,8 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Stop losing hours to
-          <span className="text-primary"> manual invoice entry</span>
+          Extract invoices from Gmail to Google Sheets
+          <span className="text-gray-400"> automatically</span>
         </motion.h1>
 
         <motion.p
@@ -60,8 +60,8 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Stella scans your Gmail, extracts invoice data, and organizes
-          everything in Google Sheets — saving you 5+ hours every month.
+          Stop manually copying invoice data. Stella AI scans your emails and
+          exports billing details in seconds.
         </motion.p>
 
         <motion.div
@@ -73,22 +73,16 @@ export default function Hero() {
         >
           <Button
             onClick={open}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-4 h-auto text-base cursor-pointer"
+            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-4 h-auto text-base cursor-pointer"
           >
             <svg
               className="w-5 h-5 mr-1"
-              fill="none"
-              stroke="currentColor"
               viewBox="0 0 24 24"
+              fill="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09V16.9c-2.78-.47-4.65-2.24-4.82-4.51h1.93c.17 1.24 1.12 2.19 2.89 2.41v-4.44l-.63-.15C7.73 9.59 6.64 8.41 6.64 6.82c0-1.86 1.55-3.27 3.95-3.5V2h1.44v1.32c2.33.27 3.94 1.68 4.12 3.74h-1.89c-.17-1.12-1.03-1.94-2.23-2.17v4.12l.73.17c2.48.6 3.65 1.74 3.65 3.55 0 2.03-1.6 3.44-4.15 3.68v1.68h-1.44l-.03.02-.04-.02z" />
             </svg>
-            Get Early Access
+            Install Free Extension
           </Button>
           <a
             href="#how-it-works"
