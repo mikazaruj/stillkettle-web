@@ -293,31 +293,6 @@
       box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
     }
 
-    /* === STARS DECORATION === */
-    .stars {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--color-star-white);
-      border-radius: 50%;
-      animation: twinkle 3s ease-in-out infinite;
-    }
-
-    .star:nth-child(2) { top: 12%; left: 78%; width: 3px; height: 3px; animation-duration: 4s; animation-delay: 1s; }
-    .star:nth-child(3) { top: 25%; left: 15%; animation-duration: 5s; animation-delay: 2s; }
-    .star:nth-child(4) { top: 8%; left: 45%; width: 2px; height: 2px; animation-duration: 3.5s; animation-delay: 0.5s; }
-    .star:nth-child(5) { top: 35%; left: 90%; animation-duration: 4.5s; animation-delay: 1.5s; }
-    .star:nth-child(6) { top: 18%; left: 60%; width: 1px; height: 1px; animation-duration: 3s; animation-delay: 0.8s; }
-    .star:nth-child(7) { top: 40%; left: 30%; animation-duration: 5s; animation-delay: 2.5s; }
-    .star:nth-child(8) { top: 5%; left: 85%; width: 2px; height: 2px; animation-duration: 4s; animation-delay: 0.3s; }
-
     /* === SECTION LABEL === */
     .section-label {
       font-size: 13px;
@@ -611,11 +586,6 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
     }
 
     @keyframes fadeUp {

@@ -485,7 +485,6 @@
       font-size: 15px;
       color: var(--color-text-secondary);
       line-height: 1.7;
-      margin-top: 12px;
     }
 
     /* === CTA === */
@@ -521,7 +520,7 @@
     .cta-desc {
       position: relative;
       font-size: 17px;
-      color: #94A3B8;
+      color: rgba(148, 163, 184, 1);
       max-width: 440px;
       margin: 0 auto 32px;
       line-height: 1.7;
@@ -1152,35 +1151,35 @@
     </div>
 
     <div class="faq-list">
-      <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-item" tabindex="0" role="button" aria-expanded="false" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
         <div class="faq-question">
           Is my email data safe?
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <p class="faq-answer">Yes. Stella only reads emails that contain invoices. We never store your email content on our servers. All processing happens in-browser via the Chrome extension. Your data stays on your device.</p>
       </div>
-      <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-item" tabindex="0" role="button" aria-expanded="false" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
         <div class="faq-question">
           What email providers are supported?
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <p class="faq-answer">Currently Gmail only, via the Chrome extension. Outlook support is on our roadmap and coming soon.</p>
       </div>
-      <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-item" tabindex="0" role="button" aria-expanded="false" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
         <div class="faq-question">
           Can I cancel anytime?
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <p class="faq-answer">Absolutely. No contracts, no lock-in. Cancel your Pro plan anytime and you'll keep access until the end of your billing period. The free plan never expires.</p>
       </div>
-      <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-item" tabindex="0" role="button" aria-expanded="false" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
         <div class="faq-question">
           What invoice formats are supported?
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <p class="faq-answer">Stella handles PDF attachments, inline HTML invoices, and image-based invoices in any language. Our AI improves with every scan.</p>
       </div>
-      <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-item" tabindex="0" role="button" aria-expanded="false" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
         <div class="faq-question">
           How accurate is the data extraction?
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
