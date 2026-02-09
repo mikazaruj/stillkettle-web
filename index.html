@@ -13,15 +13,27 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Outfit:wght@400;500;600&family=Inter:wght@400;500&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
   <!-- M3 Design Tokens -->
   <link rel="stylesheet" href="styles/m3-tokens.css?v=2">
+
+  <!-- Slideshow Picker (logo testing) -->
+  <link rel="stylesheet" href="components/slideshow-picker.css">
 
   <!-- Theme Presets (light/dark) -->
   <link rel="stylesheet" href="styles/theme-presets.css">
 
   <style>
+    /* Grift Black — custom geometric typeface */
+    @font-face {
+      font-family: 'Grift';
+      src: url('assets/fonts/grift-black.ttf') format('truetype');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* ===================
        BASE STYLES
        =================== */
@@ -403,11 +415,17 @@
 <!-- Glass Navigation -->
 <nav class="nav-glass glass-nav">
   <div class="container" style="display: flex; align-items: center; justify-content: space-between; height: 52px;">
-    <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
-      <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center;">
-        <span style="color: #fff; font-weight: 500;">SK</span>
+    <a href="/" id="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
+      <!-- Logo icon swapped by picker -->
+      <div id="nav-logo-icon" style="display: flex; align-items: center; justify-content: center;">
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="orbit-nav"><circle cx="50" cy="50" r="44"/></clipPath></defs>
+          <circle cx="50" cy="50" r="44" stroke="#F59E0B" stroke-width="3.5"/>
+          <path d="M50 6 C 20 6, 20 50, 50 50 C 80 50, 80 94, 50 94" stroke="#F59E0B" stroke-width="3.5" fill="none" clip-path="url(#orbit-nav)"/>
+          <circle cx="50" cy="50" r="4.5" fill="#F59E0B"/>
+        </svg>
       </div>
-      <span class="title-medium" style="color: #fff;">Still Kettle</span>
+      <span id="nav-logo-text" style="font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 500; color: #fff; letter-spacing: -0.01em;">soltella</span>
     </a>
 
     <div style="display: flex; align-items: center; gap: var(--md-sys-spacing-sm);">
@@ -683,6 +701,145 @@
 </footer>
 
 </div><!-- End page-content -->
+
+<!-- Picker Container -->
+<div id="picker-container"></div>
+
+<!-- Slideshow Picker JS -->
+<script src="components/slideshow-picker.js"></script>
+<script>
+  // --- Logo configs: icon + wordmark HTML for each option ---
+  const navLogo = document.getElementById('nav-logo');
+
+  // Save original nav structure to restore when switching to icon+text variants
+  const originalNavHTML = navLogo.innerHTML;
+
+  function svgToDataURI(svg) {
+    return 'data:image/svg+xml,' + encodeURIComponent(svg.trim());
+  }
+
+  // --- A) Orbit icon + "soltella" text ---
+  const orbitNavHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+        <defs><clipPath id="orbit-n"><circle cx="50" cy="50" r="44"/></clipPath></defs>
+        <circle cx="50" cy="50" r="44" stroke="#F59E0B" stroke-width="3.5"/>
+        <path d="M50 6 C 20 6,20 50,50 50 C 80 50,80 94,50 94" stroke="#F59E0B" stroke-width="3.5" fill="none" clip-path="url(#orbit-n)"/>
+        <circle cx="50" cy="50" r="4.5" fill="#F59E0B"/>
+      </svg>
+    </div>
+    <span style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:-0.01em;">soltella</span>`;
+
+  // --- B) Option C icon + "soltella" text ---
+  const optCNavHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+        <defs><mask id="oc-m"><rect width="100" height="100" fill="white"/><circle cx="58" cy="50" r="30" fill="black"/></mask></defs>
+        <circle cx="40" cy="50" r="30" fill="#F59E0B" mask="url(#oc-m)"/>
+        <circle cx="58" cy="50" r="30" stroke="#F59E0B" stroke-width="3" fill="none"/>
+      </svg>
+    </div>
+    <span style="font-family:'DM Sans',sans-serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:-0.01em;">soltella</span>`;
+
+  // --- C) Blackletter wordmark (standalone, no icon) ---
+  const blackletterNavHTML = `
+    <span style="font-family:'UnifrakturMaguntia',cursive;font-size:24px;font-weight:400;color:#fff;letter-spacing:0.1em;line-height:1;">soltella</span>`;
+
+  // --- E) Grift Black wordmark (standalone, no icon) ---
+  const griftNavHTML = `
+    <span style="font-family:'Grift',sans-serif;font-size:20px;font-weight:900;color:#fff;letter-spacing:0.18em;line-height:1;text-transform:lowercase;">soltella</span>`;
+
+  // --- D) Geometric wordmark with concentric O (standalone, no icon) ---
+  const geometricNavHTML = `
+    <span style="display:inline-flex;align-items:center;font-family:'DM Sans',sans-serif;font-weight:600;color:#fff;line-height:1;">
+      <span style="font-size:17px;letter-spacing:0.22em;">S</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin:0 3px 0 0;flex-shrink:0;">
+        <circle cx="12" cy="12" r="9.5" stroke="white" stroke-width="2.4" fill="none"/>
+        <circle cx="12" cy="12" r="3.8" fill="white"/>
+      </svg>
+      <span style="font-size:17px;letter-spacing:0.22em;">LTELLA</span>
+    </span>`;
+
+  // --- Picker thumbnails ---
+  const thumbOrbit = svgToDataURI(`
+    <svg width="96" height="64" viewBox="0 0 96 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="64" rx="6" fill="#1a1520"/>
+      <g transform="translate(14,6) scale(0.52)">
+        <defs><clipPath id="to"><circle cx="50" cy="50" r="44"/></clipPath></defs>
+        <circle cx="50" cy="50" r="44" stroke="#F59E0B" stroke-width="4"/>
+        <path d="M50 6 C 20 6,20 50,50 50 C 80 50,80 94,50 94" stroke="#F59E0B" stroke-width="4" fill="none" clip-path="url(#to)"/>
+        <circle cx="50" cy="50" r="5" fill="#F59E0B"/>
+      </g>
+      <text x="68" y="38" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.7)" font-weight="500">Orbit</text>
+    </svg>`);
+
+  const thumbOptC = svgToDataURI(`
+    <svg width="96" height="64" viewBox="0 0 96 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="64" rx="6" fill="#1a1520"/>
+      <g transform="translate(16,10) scale(0.44)">
+        <defs><mask id="tc"><rect width="100" height="100" fill="white"/><circle cx="58" cy="50" r="30" fill="black"/></mask></defs>
+        <circle cx="40" cy="50" r="30" fill="#F59E0B" mask="url(#tc)"/>
+        <circle cx="58" cy="50" r="30" stroke="#F59E0B" stroke-width="4" fill="none"/>
+      </g>
+      <text x="62" y="38" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.7)" font-weight="500">Opt C</text>
+    </svg>`);
+
+  const thumbBlackletter = svgToDataURI(`
+    <svg width="96" height="64" viewBox="0 0 96 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="64" rx="6" fill="#1a1520"/>
+      <text x="48" y="38" font-family="serif" font-size="14" fill="white" font-weight="700" text-anchor="middle" letter-spacing="1">soltella</text>
+      <text x="48" y="52" font-family="sans-serif" font-size="7" fill="rgba(255,255,255,0.5)" text-anchor="middle">Blackletter</text>
+    </svg>`);
+
+  const thumbGeometric = svgToDataURI(`
+    <svg width="96" height="64" viewBox="0 0 96 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="64" rx="6" fill="#1a1520"/>
+      <text x="10" y="36" font-family="sans-serif" font-size="11" fill="white" font-weight="600" letter-spacing="3">S</text>
+      <circle cx="28" cy="32" r="6" stroke="white" stroke-width="1.5" fill="none"/>
+      <circle cx="28" cy="32" r="2.5" fill="white"/>
+      <text x="36" y="36" font-family="sans-serif" font-size="11" fill="white" font-weight="600" letter-spacing="3">LTELLA</text>
+      <text x="48" y="52" font-family="sans-serif" font-size="7" fill="rgba(255,255,255,0.5)" text-anchor="middle">Geometric</text>
+    </svg>`);
+
+  const thumbGrift = svgToDataURI(`
+    <svg width="96" height="64" viewBox="0 0 96 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="64" rx="6" fill="#1a1520"/>
+      <text x="48" y="36" font-family="sans-serif" font-size="12" fill="white" font-weight="900" text-anchor="middle" letter-spacing="2.5">soltella</text>
+      <text x="48" y="52" font-family="sans-serif" font-size="7" fill="rgba(255,255,255,0.5)" text-anchor="middle">Grift Black</text>
+    </svg>`);
+
+  const logoSlides = [
+    { id: 'orbit',       label: 'Orbit',       image: thumbOrbit, active: true },
+    { id: 'option-c',    label: 'Option C',    image: thumbOptC },
+    { id: 'blackletter', label: 'Blackletter', image: thumbBlackletter },
+    { id: 'geometric',   label: 'Geometric',   image: thumbGeometric },
+    { id: 'grift',       label: 'Grift',       image: thumbGrift }
+  ];
+
+  const navHTMLMap = {
+    'orbit':       orbitNavHTML,
+    'option-c':    optCNavHTML,
+    'blackletter': blackletterNavHTML,
+    'geometric':   geometricNavHTML,
+    'grift':       griftNavHTML
+  };
+
+  const picker = new SlideshowPicker({
+    container: '#picker-container',
+    slides: logoSlides,
+    controls: [],
+    showInfo: true,
+    infoTitle: 'Logo Testing',
+    infoDescription: 'Pick a logo variant — swaps live in the navbar.',
+    theme: 'dark',
+    size: 'large',
+    position: 'bottom-center',
+    autoplay: false,
+    onSlideChange: (slideId) => {
+      navLogo.innerHTML = navHTMLMap[slideId] || originalNavHTML;
+    }
+  });
+</script>
 
 </body>
 </html>
